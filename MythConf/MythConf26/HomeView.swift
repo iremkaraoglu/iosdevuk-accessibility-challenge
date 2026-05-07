@@ -8,21 +8,24 @@
 import SwiftUI
 
 struct HomeView: View {
+    @State private var selectedTab: Int = 0
+
     var body: some View {
-        TabView {
-            Tab("Programme", systemImage: "calendar") {
+        TabView(selection: $selectedTab) {
+            Tab("Programme", systemImage: "calendar", value: 0) {
                 ProgrammeView()
             }
-            Tab("Speakers", systemImage: "person.2") {
+            Tab("Speakers", systemImage: "person.2", value: 1) {
                 SpeakersView()
             }
-            Tab("Locations", systemImage: "map") {
+            Tab("Locations", systemImage: "map", value: 2) {
                 LocationsView()
             }
-            Tab("My Schedule", systemImage: "star") {
+            Tab("My Schedule", systemImage: "star", value: 3) {
                 MyScheduleView()
             }
         }
+        .sensoryFeedback(.selection, trigger: selectedTab)
     }
 
 }

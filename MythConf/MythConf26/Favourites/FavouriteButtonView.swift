@@ -22,5 +22,9 @@ struct FavouriteButtonView: View {
                 .foregroundStyle(viewModel.isFavourite(talk: talk) ? .yellow : .secondary)
         }
         .accessibilityLabel(viewModel.isFavourite(talk: talk) ? "Remove from favourites" : "Add to favourites")
+        .sensoryFeedback(trigger: viewModel.isFavourite(talk: talk)) { _, isNowFavourite in
+            isNowFavourite ? .success : .impact(weight: .light)
+        }
+        // ROTOR ACTION
     }
 }
