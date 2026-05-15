@@ -42,15 +42,26 @@ struct ParallelTalkCardView: View {
             .background(session.sessionType.color.opacity(0.1), in: .rect(cornerRadius: 10))
             .clipShape(.rect(cornerRadius: 10))
         }
-        .accessibilityLabel("\(session.sessionType.displayName): \(viewModel.talkTitleFrom(talkID: talkID)), by \(viewModel.speakersFrom(talkID: talkID)), \(viewModel.locationNameFrom(talkID: talkID))")
+        .accessibilityLabel(accessibilityLabelText)
+        .accessibilityValue(viewModel.isFavourite(talk: viewModel.talkFrom(talkID: talkID)) ? "Favourited" : "")
         .accessibilityAction(named: viewModel.isFavourite(talk: viewModel.talkFrom(talkID: talkID)) ? "Remove from favourites" : "Add to favourites") {
-            let talk = viewModel.talkFrom(talkID: talkID)
-            if viewModel.isFavourite(talk: talk) {
-                viewModel.removeFavourite(talk: talk)
-            } else {
-                viewModel.addFavourite(talk: talk)
-            }
+            toggleFavourite()
         }
         .buttonStyle(.plain)
+    }
+
+    private var accessibilityLabelText: String {
+        "\(session.sessionType.displayName): \(viewModel.talkTitleFrom(talkID: talkID)), by \(viewModel.speakersFrom(talkID: talkID)), \(viewModel.locationNameFrom(talkID: talkID))"
+    }
+    private func toggleFavourite() {
+        if viewModel.isFavourite(talk: viewModel.talkFrom(talkID: talkID)) {
+            let talk = viewModel.talkFrom(talkID: talkID)
+            viewModel.removeFavourite(talk: talk)
+            AccessibilityNotification.Announcement("Removed from favourites").post()
+        } else {
+            let talk = viewModel.talkFrom(talkID: talkID)
+            viewModel.addFavourite(talk: talk)
+            AccessibilityNotification.Announcement("Added to favourites").post()
+        }
     }
 }
