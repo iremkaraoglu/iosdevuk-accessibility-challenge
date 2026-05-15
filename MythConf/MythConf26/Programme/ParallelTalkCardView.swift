@@ -21,14 +21,14 @@ struct ParallelTalkCardView: View {
                 VStack(alignment: .leading) {
                     Text(viewModel.talkTitleFrom(talkID: talkID))
                         .bold()
-                        .font(.subheadline)
+                        .appFont(.subheadline, useLexend: viewModel.useLexendFont)
                         .multilineTextAlignment(.leading)
                     Text(viewModel.speakersFrom(talkID: talkID))
-                        .font(.caption)
+                        .appFont(.caption, useLexend: viewModel.useLexendFont)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.leading)
                     Text(viewModel.locationNameFrom(talkID: talkID))
-                        .font(.caption)
+                        .appFont(.caption, useLexend: viewModel.useLexendFont)
                         .foregroundStyle(.secondary)
                     Spacer()
                     HStack {

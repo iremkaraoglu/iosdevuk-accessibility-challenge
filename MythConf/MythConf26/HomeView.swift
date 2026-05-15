@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
+    @Environment(ViewModel.self) private var viewModel
     @State private var selectedTab: Int = 0
 
     var body: some View {
@@ -28,12 +29,19 @@ struct HomeView: View {
                 MyScheduleView()
                     .accessibilityHint("Review the talks you have favourited.")
             }
+            Tab("Settings", systemImage: "gearshape", value: 4) {
+                SettingsView()
+                    .accessibilityHint("Change reading and sensory feedback settings.")
+            }
         }
-        .sensoryFeedback(.selection, trigger: selectedTab)
+        .sensoryFeedback(trigger: selectedTab) { _, _ in
+            viewModel.hapticFeedbackEnabled ? .selection : nil
+        }
     }
 
 }
 
 #Preview {
     HomeView()
+        .environment(ViewModel())
 }

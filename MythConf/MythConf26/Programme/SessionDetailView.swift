@@ -23,7 +23,7 @@ struct SessionDetailView: View {
                         Label(viewModel.locationNameFrom(locationID: talk.locationID), systemImage: "mappin")
                     }
                 }
-                .font(.subheadline)
+                .appFont(.subheadline, useLexend: viewModel.useLexendFont)
                 .foregroundStyle(.secondary)
                 .padding(.bottom)
 

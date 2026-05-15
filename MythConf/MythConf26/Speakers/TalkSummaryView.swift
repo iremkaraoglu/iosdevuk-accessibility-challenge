@@ -19,7 +19,7 @@ struct TalkSummaryView: View {
                 Label(session.timeRange, systemImage: "clock")
                 Label(viewModel.locationNameFrom(talkID: talkID), systemImage: "mappin")
             }
-            .font(.caption)
+            .appFont(.caption, useLexend: viewModel.useLexendFont)
             .foregroundStyle(.secondary)
         }
         .padding(.vertical, 4)

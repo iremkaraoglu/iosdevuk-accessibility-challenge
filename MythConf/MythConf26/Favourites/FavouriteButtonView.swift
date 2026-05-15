@@ -21,7 +21,8 @@ struct FavouriteButtonView: View {
         }
         .accessibilityLabel(viewModel.isFavourite(talk: talk) ? "Remove from favourites" : "Add to favourites")
         .sensoryFeedback(trigger: viewModel.isFavourite(talk: talk)) { _, isNowFavourite in
-            isNowFavourite ? .success : .impact(weight: .light)
+            guard viewModel.hapticFeedbackEnabled else { return nil }
+            return isNowFavourite ? SensoryFeedback.success : SensoryFeedback.impact(weight: .light)
         }
     }
 

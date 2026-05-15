@@ -30,7 +30,7 @@ struct MyScheduleView: View {
                                         }
                                     } header: {
                                         Text(dayHeader(for: daySessions))
-                                            .font(.headline)
+                                            .appFont(.headline, useLexend: viewModel.useLexendFont)
                                             .bold()
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                             .padding(.horizontal)
